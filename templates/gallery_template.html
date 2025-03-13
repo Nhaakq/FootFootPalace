@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ model_name }} - FootFoot Palace</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/stars.js"></script>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="gallery-wrapper">
+        <!-- Model Presentation Card -->
+        <div class="model-card">
+            <div class="model-info">
+                <img src="{{ model_image }}" alt="{{ model_name }}" class="model-avatar">
+                <div class="model-details">
+                    <h1>{{ model_name }}</h1>
+                    <p class="model-description">{{ model_description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="gallery-grid">
+            {% for i in range(12) %}
+            <div class="gallery-item">
+                <img src="/static/img/fake_feet.jpg" alt="Preview feet photo" loading="lazy">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> 

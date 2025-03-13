@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootFoot Palace - Choose Your Path</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/stars.js"></script>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="main-wrapper">
+        <h1 class="title">Choose Your Path</h1>
+        <div class="choice-container">
+            {% for model in models %}
+            <a href="/gallery/{{ model.id }}" class="choice-block">
+                <div class="choice-image">
+                    <img src="{{ model.avatar_path }}" alt="{{ model.name }}">
+                </div>
+                <div class="choice-content">
+                    <h2>{{ model.name }}</h2>
+                    <p>{{ model.description }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> 
