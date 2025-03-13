@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dependencies for {{ package_name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffffcc;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: #00ccff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .download-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #00ccff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-align: center;
+        }
+        .download-button:hover {
+            background-color: #00a3cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dependencies for {{ package_name }}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Version</th>
+                    <th>Download Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dependencies_info['package'] }}</td>
+                    <td>{{ dependencies_info['version'] }}</td>
+                    <td><a href="{{ get_whl_url(dependencies_info['package'], dependencies_info['version']) }}">Download .whl</a></td>
+                </tr>
+                {% for dependency in dependencies_info['dependencies'] %}
+                <tr>
+                    <td>{{ dependency['package'] }}</td>
+                    <td>{{ dependency['version'] }}</td>
+                    <td><a href="{{ dependency['url'] }}">Download .whl</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="download-button" onclick="downloadAll()">Download All .whl Files</button>
+        <a href="/" class="back-link">Back to Search</a>
+    </div>
+
+    <script>
+        // Fonction pour télécharger tous les fichiers .whl
+        function downloadAll() {
+            const urls = [
+                "{{ get_whl_url(dependencies_info['package'], dependencies_info['version']) }}",
+                {% for dependency in dependencies_info['dependencies'] %}
+                "{{ dependency['url'] }}",
+                {% endfor %}
+            ];
+
+            let delay = 0;
+
+            urls.forEach(url => {
+                if (url) {
+                    setTimeout(() => {
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = '';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }, delay);
+                    delay += 500; // Ajouter un délai pour chaque téléchargement
+                }
+            });
+        }
+    </script>
+</body>
+</html>

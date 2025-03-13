@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPI Download Dependencies</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/index.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}" >
+
+    <script src="{{ url_for('static', path='js/stars.js') }}"></script>
+
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <h1>PyPI - Download Dependencies</h1>
+        <form action="/" method="post">
+            <input type="text" name="package_name" placeholder="Enter package name" required>
+            <input type="text" name="package_version" placeholder="Enter package version (optional)">
+            {% if infos.status == 1 %}
+            <div id="error" class="error_msg">Error - PIP Package <p style="display: inline; font-weight: bold;">{{ infos.package }}:{{ infos.version | default('latest')}}</p> not found !</div>
+            {% endif %}
+            <button type="submit">Search</button>
+        </form>
+        <p>Data from <a href="https://pypi.org/" style="color: #00bfff;">https://pypi.org/</a></p>
+    </div>
+</body>
+</html>
